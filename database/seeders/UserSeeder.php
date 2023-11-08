@@ -1,0 +1,31 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+class UserSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        if (! User::where('email', 'a.marchionni@pneumaticiadriatica.it')->first()) {
+            $user = User::create([
+                'name' => 'Utente Demo',
+                'email' => 'a.marchionni@pneumaticiadriatica.it',
+                'password' => Hash::make('password'),
+            ]);
+
+            $user->email_verified_at = now();
+            $user->remember_token = Str::random(10);
+            $user->save();
+        }
+    }
+}
